@@ -1,7 +1,7 @@
 package com.example.movietvcatalogue.data
 
 data class MoviesEntity(
-    var moviesId: String,
+    val moviesId: String,
     var title: String,
     var genre: String,
     var year: Int,
