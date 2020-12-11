@@ -14,6 +14,7 @@ import com.example.movietvcatalogue.data.MoviesEntity
 import com.example.movietvcatalogue.databinding.ActivityDetailMoviesBinding
 import com.example.movietvcatalogue.databinding.ContentDetailMoviesBinding
 import com.example.movietvcatalogue.utils.FormatedMethod
+import java.lang.StringBuilder
 
 
 class DetailMoviesActivity : AppCompatActivity() {
@@ -21,6 +22,7 @@ class DetailMoviesActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_MOVIES = "extra_movies"
         const val EXTRA_STATUS = "extra_status"
+        const val EXTRA_TITLE_TAB = "movies"
     }
 
     private lateinit var contentDetailMoviesBinding: ContentDetailMoviesBinding
@@ -45,12 +47,12 @@ class DetailMoviesActivity : AppCompatActivity() {
             val movieStatus = extras.getString(EXTRA_STATUS)
             if (movieId != null) {
                 viewModel.setSelectedMovies(movieId)
-                if (movieStatus == "movies") {
+                if (movieStatus == EXTRA_TITLE_TAB) {
                     populateMoview(viewModel.getMoviesDetail(), movieStatus)
-                    supportActionBar?.title = "Detail Movies"
+                    supportActionBar?.title = getString(R.string.title_tab_movies)
                 } else {
                     movieStatus?.let { populateMoview(viewModel.getTvShowsDetail(), it) }
-                    supportActionBar?.title = "Detail TV Shows"
+                    supportActionBar?.title = getString(R.string.title_tab_tvshows)
                 }
             }
         }
@@ -61,7 +63,7 @@ class DetailMoviesActivity : AppCompatActivity() {
     private fun populateMoview(movies: MoviesEntity, movieStatus: String) {
         movies.apply {
             with(contentDetailMoviesBinding) {
-                tvTitle.text = "$title ($year)"
+                tvTitle.text = StringBuilder("$title ($year)")
                 tvGenre.text = genre
                 tvDescription.text = description
                 tvDirector.text = director

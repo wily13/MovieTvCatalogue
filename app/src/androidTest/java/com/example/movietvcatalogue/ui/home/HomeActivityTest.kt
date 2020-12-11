@@ -77,8 +77,6 @@ class HomeActivityTest {
         onView(withId(R.id.tv_genre)).check(matches(withText(dummyMovies[0].genre)))
         onView(withId(R.id.tv_description)).check(matches(withText(dummyMovies[0].description)))
         onView(withId(R.id.tv_director)).check(matches(withText(dummyMovies[0].director)))
-        onView(withId(R.id.tv_creator)).check(matches(withText(dummyMovies[0].creator)))
-        onView(withId(R.id.tv_type)).check(matches(withText(dummyMovies[0].type)))
         onView(withId(R.id.tv_status)).check(matches(withText(dummyMovies[0].status)))
         onView(withId(R.id.tv_language)).check(matches(withText(dummyMovies[0].language)))
         onView(withId(R.id.tv_budget)).check(
@@ -130,6 +128,18 @@ class HomeActivityTest {
         onView(withId(R.id.tv_type)).check(matches(withText(dummyTvShows[0].type)))
         onView(withId(R.id.tv_status)).check(matches(withText(dummyTvShows[0].status)))
         onView(withId(R.id.tv_language)).check(matches(withText(dummyTvShows[0].language)))
+    }
+
+    @Test
+    fun buttonShareMovies() {
+        onView(withId(R.id.rv_movies)).check(matches(isDisplayed()))
+        onView(withId(R.id.rv_movies)).perform(
+            RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
+                dummyMovies.size - 8,
+                ViewActions.click()
+            )
+        )
+        onView(withId(R.id.fab)).perform(click())
     }
 
     @Test
