@@ -65,4 +65,7 @@ dependencies {
 
     testImplementation "com.google.truth:truth:$googleTruthVersion"
     androidTestImplementation "com.google.truth:truth:$googleTruthVersion"
+
+    testImplementation "org.mockito:mockito-core:$mockitoVersion"
+    testImplementation "org.mockito:mockito-inline:$mockitoVersion"
 }

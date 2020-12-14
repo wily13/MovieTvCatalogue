@@ -1,10 +1,17 @@
 package com.example.movietvcatalogue.ui.detail
 
+import com.example.movietvcatalogue.data.source.MoviesRepository
 import com.example.movietvcatalogue.utils.MoviesDataDummy
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 import org.junit.Before
+import org.junit.runner.RunWith
+import org.mockito.Mock
+import org.mockito.Mockito.`when`
+import org.mockito.Mockito.verify
+import org.mockito.junit.MockitoJUnitRunner
 
+@RunWith(MockitoJUnitRunner::class)
 class DetailMoviesViewModelTest {
 
     private lateinit var viewModel: DetailMoviesViewModel
@@ -12,16 +19,20 @@ class DetailMoviesViewModelTest {
     private val dummyTvShows = MoviesDataDummy.generateDummyTvShows()[0]
     private val moviesId = dummyMovies.moviesId
 
+    @Mock
+    private lateinit var moviesRepository: MoviesRepository
+
     @Before
     fun setup() {
-        viewModel = DetailMoviesViewModel()
+        viewModel = DetailMoviesViewModel(moviesRepository)
         viewModel.setSelectedMovies(moviesId)
     }
 
     @Test
     fun getMoviesDetail() {
-        viewModel.setSelectedMovies(dummyMovies.moviesId)
+        `when`(moviesRepository.getMoviesDetail(moviesId)).thenReturn(dummyMovies)
         val moviesEntity = viewModel.getMoviesDetail()
+        verify(moviesRepository).getMoviesDetail(moviesId)
         assertThat(moviesEntity).isNotNull()
         assertThat(dummyMovies.moviesId).isEqualTo(moviesEntity.moviesId)
         assertThat(dummyMovies.title).isEqualTo(moviesEntity.title)
@@ -41,8 +52,9 @@ class DetailMoviesViewModelTest {
 
     @Test
     fun getTvShowsDetail() {
-        viewModel.setSelectedMovies(dummyTvShows.moviesId)
+        `when`(moviesRepository.getTvShowsDetail(moviesId)).thenReturn(dummyTvShows)
         val tvShowsEntity = viewModel.getTvShowsDetail()
+        verify(moviesRepository).getTvShowsDetail(moviesId)
         assertThat(tvShowsEntity).isNotNull()
         assertThat(dummyTvShows.moviesId).isEqualTo(tvShowsEntity.moviesId)
         assertThat(dummyTvShows.title).isEqualTo(tvShowsEntity.title)
