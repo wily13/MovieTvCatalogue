@@ -14,6 +14,7 @@ import com.example.movietvcatalogue.data.MoviesEntity
 import com.example.movietvcatalogue.databinding.ActivityDetailMoviesBinding
 import com.example.movietvcatalogue.databinding.ContentDetailMoviesBinding
 import com.example.movietvcatalogue.utils.FormatedMethod
+import com.example.movietvcatalogue.viewmodel.ViewModelFactory
 import java.lang.StringBuilder
 
 
@@ -37,7 +38,8 @@ class DetailMoviesActivity : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.toolbar))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(
+        val factory = ViewModelFactory.getInstance(this)
+        val viewModel = ViewModelProvider(this, factory).get(
             DetailMoviesViewModel::class.java
         )
 

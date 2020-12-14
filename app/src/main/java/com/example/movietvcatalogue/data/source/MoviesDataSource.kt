@@ -3,11 +3,11 @@ package com.example.movietvcatalogue.data.source
 import com.example.movietvcatalogue.data.MoviesEntity
 
 interface MoviesDataSource {
-    fun getDataMovies(): List<MoviesEntity>
+    fun getAllMovies(): List<MoviesEntity>
 
-    fun getDataTvShows(): List<MoviesEntity>
+    fun getAllTvShows(): List<MoviesEntity>
 
-    fun getMoviesDetail(): MoviesEntity
+    fun getMoviesDetail(moviesId: String): MoviesEntity
 
-    fun getTvShowsDetail(): MoviesEntity
+    fun getTvShowsDetail(tvShowsId: String): MoviesEntity
 }

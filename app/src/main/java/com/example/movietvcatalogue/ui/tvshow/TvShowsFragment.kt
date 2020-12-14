@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.movietvcatalogue.databinding.FragmentTvShowsBinding
+import com.example.movietvcatalogue.viewmodel.ViewModelFactory
 
 class TvShowsFragment : Fragment() {
 
@@ -30,7 +31,8 @@ class TvShowsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         if (activity != null){
-            val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(TvShowViewModel::class.java)
+            val factory = ViewModelFactory.getInstance(requireActivity())
+            val viewModel = ViewModelProvider(this, factory).get(TvShowViewModel::class.java)
             val tvShows = viewModel.getDataTvShows()
 
             Log.d(TAG, tvShows.toString())
